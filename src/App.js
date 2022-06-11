@@ -1,9 +1,9 @@
-import Progress from "./components/Progress";
+import BtnGroup from "./components/BtnGroup";
 
 function App() {
     return (
         <div className="App">
-            <Progress percentage={40}/>
+            <BtnGroup />
         </div>
     );
 }
