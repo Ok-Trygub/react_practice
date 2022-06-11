@@ -1,23 +1,26 @@
 import React from 'react';
 
-class List extends React.Component {
+class ListGroup extends React.Component {
+
+    renderData() {
+        const {children} = this.props
+
+        return children.map((item, index) => {
+            return (
+                <React.Fragment key={index}>
+                    <li className="list-group-item">{item}</li>
+                </React.Fragment>
+            )
+        });
+    }
+
     render() {
-        const btnStyles = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
-        const {type, text} = this.props;
-
-        let btnClass = 'alert';
-        if (btnStyles.includes(type)) {
-            btnClass = cn('alert', {
-                [`alert-${type}`]: true,
-            });
-        }
-
         return (
-            <div className={btnClass} role="alert">
-                {text}
-            </div>
-        )
+            <ul className='list-group'>
+                {this.renderData()}
+            </ul>
+        );
     }
 }
 
-export default List;
+export default ListGroup;

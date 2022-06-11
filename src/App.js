@@ -1,9 +1,12 @@
-import List from "./components/ListGroup";
+import ListGroup from "./components/ListGroup";
 
 function App() {
     return (
         <div className="App">
-            <List />
+            <ListGroup>
+                <p>one</p>
+                <p>two</p>
+            </ListGroup>
         </div>
     );
 }
