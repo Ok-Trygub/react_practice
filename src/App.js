@@ -1,9 +1,9 @@
-import Progress from "./components/Progress";
+import List from "./components/ListGroup";
 
 function App() {
     return (
         <div className="App">
-            <Progress percentage={40}/>
+            <List />
         </div>
     );
 }
