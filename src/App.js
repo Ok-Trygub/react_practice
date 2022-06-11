@@ -1,9 +1,9 @@
-import Progress from "./components/Progress";
+import Alert from './components/Alert';
 
 function App() {
     return (
         <div className="App">
-            <Progress percentage={40}/>
+            <Alert type="success" text="what is love?"/>
         </div>
     );
 }
