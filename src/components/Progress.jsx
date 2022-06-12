@@ -1,6 +1,9 @@
 import React from "react";
 
 class Progress extends React.Component {
+    static defaultProps = {
+        percentage: 60,
+    }
 
     render() {
 
