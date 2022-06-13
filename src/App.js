@@ -1,9 +1,9 @@
-import Progress from "./components/Progress";
+import Carousel from "./components/Carousel";
 
 function App() {
     return (
         <div className="App">
-            <Progress percentage={40}/>
+            <Carousel/>
         </div>
     );
 }
