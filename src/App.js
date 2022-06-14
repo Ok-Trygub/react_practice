@@ -3,7 +3,7 @@ import MyForm from "./components/MyForm";
 function App() {
     return (
         <div className="App">
-            <MyForm />
+            <MyForm text={'hi'} />
         </div>
     );
 }
