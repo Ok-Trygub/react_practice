@@ -1,5 +1,5 @@
 
-### An implementation of the component that emulates the operation of a slider. 
+### An implementation of the 'Carousel' component that emulates the operation of a slider. 
 
 The component takes as input the "image" property, which contains a list of paths to images. The component displays them and allows you to navigate through them using the forward and back arrows. The transition itself is looped. Pictures (paths to them) can be repeated.
 
