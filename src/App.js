@@ -1,9 +1,9 @@
-import Progress from "./components/Progress";
+import MyForm from "./components/MyForm";
 
 function App() {
     return (
         <div className="App">
-            <Progress percentage={40}/>
+            <MyForm />
         </div>
     );
 }

@@ -1,6 +1,7 @@
-This is a scope of various components created with React.
-You can see them in the branches of the repository.
-
-In the project directory, you can run:
-### `npm install`
-### `npm start`
+### An implementation of the <MyForm> component that displays a form with six elements:
+- email
+- password
+- address
+- city
+- country – select with the following values: Argentina, Ukraine, China.
+- Accept Rules
