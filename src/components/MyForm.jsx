@@ -1,24 +1,22 @@
 import React from 'react';
-
-// import cn from 'classnames';
+import ResultTable from './ResultTable';
 
 class MyForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: null,
-            password: null,
-            address: null,
-            city: null,
-            country: null,
-            acceptRules: null,
-            formFilled: null
+            email: '',
+            password: '',
+            address: '',
+            city: '',
+            country: '',
+            acceptRules: '',
+            formFilled: 'false'
         };
     }
 
     backHandler = () => {
-        this.setState(state => ({formFilled: 'false'}))
-
+        this.setState(state => ({formFilled: 'false'}));
     }
 
     formHandler = () => {
@@ -27,6 +25,7 @@ class MyForm extends React.Component {
     }
 
     handleChange = (event) => {
+        event.preventDefault();
         const {target} = event;
 
         if (target.type === 'checkbox') {
@@ -44,22 +43,9 @@ class MyForm extends React.Component {
             console.log(data)
 
             return (
-
                 <div>
                     <button type="button" className="btn btn-primary" onClick={this.backHandler}>Back</button>
-                    <table className="table">
-                        <tbody>
-                        {data.sort().map(([key, value], index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{key}</td>
-                                    <td>{value}</td>
-                                </tr>
-                            )
-                        })}
-
-                        </tbody>
-                    </table>
+                    <ResultTable data={data}/>
                 </div>
             )
         }
