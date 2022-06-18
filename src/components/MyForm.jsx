@@ -10,9 +10,10 @@ class MyForm extends React.Component {
             address: '',
             city: '',
             country: '',
-            acceptRules: '',
+            checked: 'false',
             formFilled: 'false'
         };
+        console.log(this.state)
     }
 
     backHandler = () => {
@@ -29,6 +30,10 @@ class MyForm extends React.Component {
 
         const {target} = event;
         this.setState(state => ({[target.name]: target.value}));
+    }
+
+    checkBox = () => {
+        this.setState(state => ({checked: !!!state.checked}));
     }
 
     render() {
@@ -86,7 +91,7 @@ class MyForm extends React.Component {
                     <div className="form-check">
                         <label className="form-check-label" htmlFor="rules">
                             <input id="rules" type="checkbox" name="acceptRules" className="form-check-input"
-                                   value={this.state.acceptRules} onChange={this.handleChange}/>
+                                   value={this.state.checked} onChange={this.checkBox}/>
                             Accept Rules
                         </label>
                     </div>
