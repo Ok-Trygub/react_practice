@@ -10,18 +10,18 @@ class MyForm extends React.Component {
             address: '',
             city: '',
             country: '',
-            checked: 'false',
-            formFilled: 'false'
+            acceptRules: 'not Accepted',
+            formFilled: 'notFilled'
         };
-        console.log(this.state)
     }
 
     backHandler = () => {
-        this.setState(state => ({formFilled: 'false'}));
+        this.setState(state => ({formFilled: 'notFilled'}));
     }
 
     formHandler = () => {
-        this.setState(state => ({formFilled: 'true'}));
+        this.setState(state => ({formFilled: 'filled'}));
+        this.setState(state => ({acceptRules: 'not Accepted'}));
     }
 
     handleChange = (event) => {
@@ -33,11 +33,11 @@ class MyForm extends React.Component {
     }
 
     checkBox = () => {
-        this.setState(state => ({checked: !!!state.checked}));
+        this.setState(state => ({acceptRules: 'accepted'}));
     }
 
     render() {
-        if (this.state.formFilled === 'true') {
+        if (this.state.formFilled === 'filled') {
             const data = Object.entries(this.state);
 
             return (

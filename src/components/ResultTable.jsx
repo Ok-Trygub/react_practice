@@ -8,9 +8,10 @@ class ResultTable extends React.Component {
             <table className="table">
                 <tbody>
                 {data.sort().map(([key, value], index) => {
+                    if (key === 'formFilled') return null;
                     if (value) return (
                         <tr key={index}>
-                            <td>{key}</td>
+                            <td>{key === 'acceptRules' ? 'Accept Rules' : key}</td>
                             <td>{value}</td>
                         </tr>
                     )
