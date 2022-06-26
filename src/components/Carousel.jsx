@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from "classnames";
 
 class Carousel extends React.Component {
     constructor(props) {
@@ -12,36 +13,42 @@ class Carousel extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        const images= this.props.images;
+        const images = this.props.images;
+        const className = event.target.className;
 
-        if (event.target.className === 'carousel-control-next') {
+        if (className === 'carousel-control-next' || className === 'carousel-control-next-icon') {
             this.setState((state) => ({pathIndex: state.pathIndex === images.length - 1 ? 0 : ++state.pathIndex}));
         }
 
-        if (event.target.className === 'carousel-control-prev') {
+        if (className === 'carousel-control-prev' || className === 'carousel-control-prev-icon') {
             this.setState((state) => ({pathIndex: state.pathIndex === 0 ? images.length - 1 : --state.pathIndex}));
         }
-        console.log(this.state.pathIndex)
+    }
+
+    renderSlide() {
+        const {images} = this.props
+
+        return images.map((item, index) => {
+            const active = cn('carousel-item',
+                {'active': this.state.pathIndex === index}
+            );
+
+            return (
+                <div className={active} key={index}>
+                    <img className="d-block w-100 " src={item} alt="slider"></img>
+                </div>
+            );
+        })
     }
 
     render() {
-        const {images} = this.props
-
         return (
             <div id="carousel" className='carousel slide' data-bs-ride="carousel">
+
                 <div className="carousel-inner">
-                    <div className='carousel-item active'>
-                        <img alt="" className="d-block w-100" src={images[this.state.pathIndex]}/>
-                    </div>
-
-                    <div className="carousel-item">
-                        <img alt="" className="d-block w-100" src={images[this.state.pathIndex]}/>
-                    </div>
-
-                    <div className="carousel-item">
-                        <img alt="" className="d-block w-100" src={images[this.state.pathIndex]}/>
-                    </div>
+                    {this.renderSlide()}
                 </div>
+
 
                 <button className="carousel-control-prev" data-bs-target="#carousel" type="button" data-bs-slide="prev"
                         onClick={this.changeImage}>
