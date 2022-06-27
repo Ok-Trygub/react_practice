@@ -1,17 +1,3 @@
-import React from 'react';
+const Text = (props) => <p className="card-text">{props.children}</p>;
 
-
-class Card extends React.Component{
-
-
-    render() {
-        return (
-            <div>
-
-            </div>
-        );
-    }
-}
-
-
-export default Card;
+export default Text;
