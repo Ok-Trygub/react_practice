@@ -1,11 +1,10 @@
-import Carousel from "./components/Carousel";
+import Component from "./components/Component";
 
 function App() {
-    const paths = ['./images/one.jpg', './images/two.webp', './images/three.jpg'];
 
     return (
         <div className="App">
-            <Carousel images = {paths} />
+            <Component />
         </div>
     );
 }
