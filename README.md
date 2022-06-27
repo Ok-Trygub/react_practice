@@ -1,8 +1,6 @@
 
-### An implementation of the 'Carousel' component that emulates the operation of a slider. 
+### An implementation of the `Modal` component that emulates the modal window. 
 
-The component takes as input the "image" property, which contains a list of paths to images. The component displays them and allows you to navigate through them using the forward and back arrows. The transition itself is looped. Pictures (paths to them) can be repeated.
+When the window is open, the line: ```<div class="modal" style="display: none;">``` is replaced by ```<div class="modal fade show" style="display: block;">```
 
-#### The behavior is described below:
-- If the last picture is selected, then next leads to the first one. The same thing happens with prev, but in reverse.
-- The first picture becomes active. The order of the pictures and their display must be preserved.
+
