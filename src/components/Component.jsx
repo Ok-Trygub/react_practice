@@ -1,38 +1,62 @@
 import React from 'react';
-import Modal from './Modal';
+import Counter from "./Counter";
+import List from "./List";
 
 export default class Component extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            modal: false
+            count: 0,
+            values: []
         }
     }
 
-    toggle = (e) => {
-        this.setState({
-            modal: !this.state.modal,
-        });
+    static Counter = Counter;
+    static List = List;
+
+    countHandler = (event) => {
+        event.preventDefault();
+        const className = event.target.className;
+
+        if (className === 'btn btn-outline-success') {
+            this.setState(state => ({
+                count: ++state.count,
+                values: [state.count, ...state.values]
+            }));
+        }
+
+        if (className === 'btn btn-outline-danger') {
+            this.setState(state => ({
+                count: --state.count,
+                values: [state.count, ...state.values]
+            }));
+        }
+    }
+
+    removeItem = (rmIndex) => (event) => {
+        event.preventDefault();
+
+        const updatedValues = this.state.values.filter((item, index) => rmIndex !== index);
+        this.setState(state => ({
+            values: updatedValues,
+            count: updatedValues[0],
+        }));
     }
 
     render() {
+        const {values} = this.state;
+
+        if (values.length) return (
+            <div>
+                <Counter toggle={this.countHandler}/>
+                <List items={values} removeItem={this.removeItem}/>
+            </div>
+        )
+
         return (
             <div>
-                <button type="button" className="modal-open-button btn btn-danger" onClick={this.toggle}>Open</button>
-
-                <Modal isOpen={this.state.modal}>
-                    <Modal.Header toggle={this.toggle}>Modal title</Modal.Header>
-
-                    <Modal.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                    </Modal.Body>
-
-                    <Modal.Footer>
-                        <button type="button" className="modal-close-button btn btn-secondary"
-                                onClick={this.toggle}>Cancel
-                        </button>
-                    </Modal.Footer>
-                </Modal>
+                <Counter toggle={this.countHandler}/>
             </div>
         );
     }
