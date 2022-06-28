@@ -1,4 +1,3 @@
-
 ### An implementation of the component that represents two buttons and an event log:
 
 - The log - a list of values, each of the value is obtained after pushing one of the two buttons. Older events are at the bottom, newer ones at the top.
