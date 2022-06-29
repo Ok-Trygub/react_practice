@@ -38,9 +38,11 @@ export default class Component extends React.Component {
         event.preventDefault();
 
         const updatedValues = this.state.values.filter((item, index) => rmIndex !== index);
+        const updatedCount = updatedValues.length ? updatedValues[0] : 0;
+
         this.setState(state => ({
             values: updatedValues,
-            count: updatedValues[0],
+            count: updatedCount,
         }));
     }
 
