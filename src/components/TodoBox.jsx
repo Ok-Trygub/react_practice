@@ -7,12 +7,10 @@ class TodoBox extends React.Component {
         super(props);
 
         this.state = {
-            itemId: '',
-            task: ''
+            currentTask: '',
+            todos: []
         }
         this.dbKey = 'taskList';
-        this.todos = [];
-
     }
 
     static Item = Item;
@@ -21,40 +19,35 @@ class TodoBox extends React.Component {
         event.preventDefault();
         event.stopPropagation();
 
-        const {target} = event;
-        this.setState(state => ({task: target.value}));
-
-        // setTimeout(() => console.log(this.state.task), 1000)
+        this.setState(state => ({currentTask: event.target.value}));
     }
 
     addTask = (event) => {
         event.preventDefault();
         event.stopPropagation();
 
-        if (!this.state.task.length) return;
+        if (!this.state.currentTask.length) return;
 
         const uniqueId = _.uniqueId();
-
         if (uniqueId === 0) throw new Error('ID cannot be 0');
-        if (uniqueId === this.state.itemId) {
-            throw new Error('ID of current element the same as ID of previous element');
-        }
-
-        this.setState(state => ({itemId: uniqueId}));
 
         let data = {
             itemId: uniqueId,
-            task: this.state.task
+            task: this.state.currentTask
         }
+
         this.setData(data);
-        this.setState(state => ({task: ''}));
+
+        this.setState(state => ({
+            todos: [data, ...this.state.todos],
+            currentTask: ''
+        }));
     }
 
 
     setData(todoItemData) {
         if (!this.hasItem()) {
             this.setItem([todoItemData]);
-            this.todos = [todoItemData];
             return;
         }
 
@@ -62,14 +55,13 @@ class TodoBox extends React.Component {
             localStorage.getItem(this.dbKey)
         )
 
-        this.todos = [todoItemData, ...storageData];
-        console.log(this.todos)
-        this.setItem(this.todos);
+        const data = [todoItemData, ...storageData];
+        this.setItem(data);
     }
 
     hasItem() {
         let data = localStorage.getItem(this.dbKey);
-        if (data === null) return false;
+        if (!data) return false;
 
         return true;
     }
@@ -81,11 +73,29 @@ class TodoBox extends React.Component {
         );
     }
 
-    renderItem() {
-        // console.log(this.todos)
+    removeItemHandler = (id) => (event) => {
+        event.stopPropagation();
 
-        return this.todos.map(item => {
-            return <Item task={item.task} key={item.itemId}/>
+        let todosArr = [...this.state.todos]
+
+        const currentItemIndex = todosArr.findIndex(todoItem => {
+            return todoItem.itemId === id
+        });
+
+        todosArr.splice(currentItemIndex, 1);
+
+        this.setState(state => ({
+            todos: todosArr
+        }))
+
+        this.setItem(todosArr);
+    }
+
+    removeItemById = (id) => this.removeItemHandler(id);
+
+    renderItem() {
+        return this.state.todos.map(item => {
+            return <Item task={item} key={item.itemId} onRemove={this.removeItemById}/>
         })
     }
 
@@ -95,7 +105,7 @@ class TodoBox extends React.Component {
                 <div className="mb-3">
                     <form className="d-flex">
                         <div className="me-3">
-                            <input type="text" value={this.state.task} onChange={this.handleChange}
+                            <input type="text" value={this.state.currentTask} onChange={this.handleChange}
                                    required="" className="form-control" placeholder="I am going..."/>
                         </div>
                         <button type="submit" className="btn btn-primary" onClick={this.addTask}>add</button>
