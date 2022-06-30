@@ -37,13 +37,13 @@ class TodoBox extends React.Component {
         }
 
         this.setData(data);
+        console.log(this.state.todos)
 
         this.setState(state => ({
             todos: [data, ...this.state.todos],
             currentTask: ''
         }));
     }
-
 
     setData(todoItemData) {
         if (!this.hasItem()) {
@@ -76,24 +76,39 @@ class TodoBox extends React.Component {
     removeItemHandler = (id) => (event) => {
         event.stopPropagation();
 
-        let todosArr = [...this.state.todos]
+        let todosArr = [...this.state.todos];
 
         const currentItemIndex = todosArr.findIndex(todoItem => {
             return todoItem.itemId === id
         });
 
         todosArr.splice(currentItemIndex, 1);
+        console.log(todosArr)
 
         this.setState(state => ({
             todos: todosArr
         }))
 
-        this.setItem(todosArr);
+        if (!todosArr.length) localStorage.clear();
+        else this.setItem(todosArr);
     }
 
     removeItemById = (id) => this.removeItemHandler(id);
 
+    componentDidMount() {
+        const data = JSON.parse(
+            localStorage.getItem(this.dbKey)
+        );
+        if (!data) return;
+
+        this.setState(state => ({
+            todos: data
+        }));
+    }
+
     renderItem() {
+        if (!this.state.todos) return null
+
         return this.state.todos.map(item => {
             return <Item task={item} key={item.itemId} onRemove={this.removeItemById}/>
         })
