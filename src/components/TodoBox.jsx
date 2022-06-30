@@ -7,10 +7,12 @@ class TodoBox extends React.Component {
         super(props);
 
         this.state = {
-            itemId: 0,
+            itemId: '',
             task: ''
         }
         this.dbKey = 'taskList';
+        this.todos = [];
+
     }
 
     static Item = Item;
@@ -33,21 +35,26 @@ class TodoBox extends React.Component {
 
         const uniqueId = _.uniqueId();
 
-        this.setState(state => ({currentItemId: uniqueId}));
+        if (uniqueId === 0) throw new Error('ID cannot be 0');
+        if (uniqueId === this.state.itemId) {
+            throw new Error('ID of current element the same as ID of previous element');
+        }
+
+        this.setState(state => ({itemId: uniqueId}));
 
         let data = {
             itemId: uniqueId,
             task: this.state.task
         }
-        console.log(data)
-
         this.setData(data);
+        this.setState(state => ({task: ''}));
     }
 
 
     setData(todoItemData) {
         if (!this.hasItem()) {
             this.setItem([todoItemData]);
+            this.todos = [todoItemData];
             return;
         }
 
@@ -55,8 +62,9 @@ class TodoBox extends React.Component {
             localStorage.getItem(this.dbKey)
         )
 
-        const currentData = [...storageData, todoItemData];
-        this.setItem(currentData);
+        this.todos = [todoItemData, ...storageData];
+        console.log(this.todos)
+        this.setItem(this.todos);
     }
 
     hasItem() {
@@ -74,13 +82,14 @@ class TodoBox extends React.Component {
     }
 
     renderItem() {
-        return <Item task={this.state.task}/>
+        // console.log(this.todos)
+
+        return this.todos.map(item => {
+            return <Item task={item.task} key={item.itemId}/>
+        })
     }
 
-
     render() {
-
-
         return (
             <div>
                 <div className="mb-3">
@@ -92,7 +101,6 @@ class TodoBox extends React.Component {
                         <button type="submit" className="btn btn-primary" onClick={this.addTask}>add</button>
                     </form>
                 </div>
-
                 {this.renderItem()}
             </div>
         )
