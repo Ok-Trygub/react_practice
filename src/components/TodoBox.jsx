@@ -37,7 +37,6 @@ class TodoBox extends React.Component {
         }
 
         this.setData(data);
-        console.log(this.state.todos)
 
         this.setState(state => ({
             todos: [data, ...this.state.todos],
