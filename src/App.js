@@ -1,14 +1,10 @@
-import TodoBox from "./components/TodoBox";
-import TodoBox2 from "./components/TodoBox2";
+import PostCatalog from "./components/PostCatalog";
 
 function App() {
 
     return (
         <div className="App">
-            {/*by Classes:*/}
-            {/*<TodoBox />*/}
-
-            <TodoBox2 />
+            <PostCatalog/>
         </div>
     );
 }

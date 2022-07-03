@@ -1,5 +1,3 @@
-#### An implementation of the `TodoBox` component with the ability to add and remove notes.
-
-The elements are added in the reverse order. The new ones are always on top.
+#### An implementation of the `PostCatalog` component, which outputs articles received from an external server.
 
 
