@@ -1,10 +1,10 @@
-import PostCatalog from "./components/PostCatalog";
+import MarkdownEditor from "./components/MarkdownEditor";
 
 function App() {
 
     return (
         <div className="App">
-            <PostCatalog/>
+            <MarkdownEditor/>
         </div>
     );
 }
