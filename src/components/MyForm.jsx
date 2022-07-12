@@ -16,12 +16,12 @@ class MyForm extends React.Component {
     }
 
     backHandler = () => {
+        this.setState(state => ({acceptRules: 'not Accepted'}));
         this.setState(state => ({formFilled: 'notFilled'}));
     }
 
     formHandler = () => {
         this.setState(state => ({formFilled: 'filled'}));
-        this.setState(state => ({acceptRules: 'not Accepted'}));
     }
 
     handleChange = (event) => {
@@ -91,7 +91,7 @@ class MyForm extends React.Component {
                     <div className="form-check">
                         <label className="form-check-label" htmlFor="rules">
                             <input id="rules" type="checkbox" name="acceptRules" className="form-check-input"
-                                   value={this.state.checked} onChange={this.checkBox}/>
+                                   value={this.state.acceptRules} onChange={this.checkBox}/>
                             Accept Rules
                         </label>
                     </div>
